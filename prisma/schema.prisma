@@ -12,3 +12,26 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Usuario {
+  id             String  @id @default(uuid()) @db.Uuid
+  nome           String  @db.VarChar(100)
+  idade          Int
+  email          String  @unique @db.VarChar(50)
+  password       String
+  link_do_github String?
+
+  @@map("usuarios")
+}
+
+// model NomeDaModel {
+//   campo Tipo        @atributos
+//   campo Tipo?       // Campo opcional
+// }
+
+// NomeDaModel: Nome da tabela/modelo
+
+// campo: Nome da coluna na tabela 
+// Tipo: String, Int, Boolean, etc.
+// @atributos: (opcional) chaves primárias, valores padrão, unicidade, etc.
+// ?: campo opcional

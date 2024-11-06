@@ -1,6 +1,7 @@
 import "dotenv/config";
 import cors from "cors";
 import express, { Request, Response } from "express";
+import { repository } from "./repository.prisma";
 
 // Servidor express
 const app = express();
@@ -13,6 +14,13 @@ app.use(express.json());
 app.get("/", (request: Request, response: Response) => {
   response.status(200).json({ message: "Api Prisma 💛" });
 });
+
+// Rota Prisma client
+// app.get("/", async (request: Request, response: Response) => {
+//   const nome_tabela = await repository.nome_tabela.findMany();
+
+//   response.status(200).json({ ok: true, message: "💛", dado: nome_tabela });
+// });
 
 // Iniciar o servidor
 app.listen(process.env.PORTA, () => {

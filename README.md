@@ -153,20 +153,47 @@ npm i @prisma/client
 ```bash
 npx prisma init --datasource-provider postgresql
 ```
-04 - Pegar a URL de conexão com o banco (Versel ou Neon), colar no `DATABASE_URL=` do arquivo `.env` 
+
+04 - Pegar a URL de conexão com o banco (Versel ou Neon), colar no `DATABASE_URL=` do arquivo `.env`
 
 ```bash
 postgres://default:Qz7EuC3bFVsY@ep-orange-water-a4mliouc.us-east-1.aws.neon.tech:5432/verceldb
 ```
 
+05 - Criar o arquivo `repository` dentro de `src` para acessar os dados no Postman
+
+```bash
+repository.prisma.ts
+```
+Incluir no arquivo:
+
+```bash
+import { PrismaClient } from "@prisma/client";
+
+export const repository = new PrismaClient();
+```
+
+No arquivo `server.ts` criar uma rota para buscar a tabela
+
+```bash
+// Rota Prisma client
+app.get("/", async (request: Request, response: Response) => {
+  const nome_tabela = await repository.nome_tabela.findMany();
+
+  response.status(200).json({ ok: true, message: "💛", dado: nome_tabela });
+});
+```
+
+
+
 ## Migrate dev
 
 ```bash
-npx prisma migrete dev
+npx prisma migrate dev
 ```
-- Dar nome a tabela: `crate_table_nome`
-
-
+```bash
+npx prisma generate
+```
 ```bash
 npx prisma studio
 ```
