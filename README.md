@@ -133,3 +133,40 @@ PORTA=3000
 ```bash
 http://localhost:3000/
 ```
+
+## Configurações Prisma
+
+1 - Instalar o Prisma no projeto
+
+```bash
+npm i -D prisma
+```
+
+02 - Instalar o client para acessar o banco
+
+```bash
+npm i @prisma/client
+```
+
+03 - Inicializar o schema
+
+```bash
+npx prisma init --datasource-provider postgresql
+```
+04 - Pegar a URL de conexão com o banco (Versel ou Neon), colar no `DATABASE_URL=` do arquivo `.env` 
+
+```bash
+postgres://default:Qz7EuC3bFVsY@ep-orange-water-a4mliouc.us-east-1.aws.neon.tech:5432/verceldb
+```
+
+## Migrate dev
+
+```bash
+npx prisma migrete dev
+```
+- Dar nome a tabela: `crate_table_nome`
+
+
+```bash
+npx prisma studio
+```
