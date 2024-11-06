@@ -14,6 +14,12 @@ npm init -y
 npm i -D typescript @types/node ts-node-dev
 ```
 
+## Criação
+
+01 - Criar o arquivo `.gitignore` para o node_modules, dist e .env
+
+02 - Criar a pasta `src`, dentro dela o arquivo `server.ts`, testar com console.log( ), rodar `npm run dev `
+
 ## Configurações tsconfig.json
 
 01 - Criar o arquivo tsconfig.json, responsável pelas opções do transpilador typescript
@@ -41,14 +47,89 @@ npx tsc --init
 
 Dentro do arquivo package.json, ajustar as seguintes propriedades:
 
-- 01 - Criar o script dev
+01 - Criar o script dev
 
 ```bash
 "dev": "ts-node-dev --respawn --transpile-only ./src/server.ts"
 ```
 
-- Criar o scripts "build": "tsc" para converter arquivos typescript em javascript
+02 - Criar o script build para converter arquivos typescript em javascript
 
-## Excludes
+```bash
+"build": "tsc"
+```
 
-01 - Criar o arquivo .gitignore para o node_modules e dist
+03 - Criar o script start
+
+```bash
+"start": "node ./dist/server.js"
+```
+
+## Configurações express
+
+01 - Instalar o express
+
+```bash
+npm i express
+```
+
+02 - Instalar as tipagens
+
+```bash
+npm i @types/express --save-dev
+```
+
+03 - Instalar o cors
+
+```bash
+npm i cors
+```
+
+04 - Intalar as tipagens
+
+```bash
+npm i @types/cors --save-dev
+```
+
+05 - Instalar o dotenv
+
+```bash
+npm i dotenv
+```
+
+06 - Criar o servidor express no arquivo `server.ts`, excluir o console.log( ). Testar usando `npm run dev`
+
+```bash
+import "dotenv/config";
+import cors from "cors";
+import express, { Request, Response } from "express";
+
+// Servidor express
+const app = express();
+
+// Middlewares
+app.use(cors());
+app.use(express.json());
+
+// Rota padrão
+app.get("/", (request: Request, response: Response) => {
+  response.status(200).json({ message: "Api Prisma 💛" });
+});
+
+// Iniciar o servidor
+app.listen(process.env.PORTA, () => {
+  console.log("Servidor rodando na porta:", process.env.PORTA, "💛");
+});
+```
+
+07 - Criar o arquivo `.env` para definir a porta
+
+```bash
+PORTA=3000
+```
+
+08 - Testar no navegador a aplicação
+
+```bash
+http://localhost:3000/
+```
