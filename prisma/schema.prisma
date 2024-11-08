@@ -24,6 +24,47 @@ model Usuario {
   @@map("usuarios")
 }
 
+model Produto {
+  id                 String   @id @default(uuid()) @db.Uuid
+  descricao          String   @db.Text
+  valor              Decimal  @db.Decimal(10, 2) // 10 dígitos, 2 casas decimais
+  quantidade_estoque Int
+  tipo_produto       String   @db.VarChar(50)
+  disponivel         Boolean?
+  createdAt          DateTime @default(now()) @map("created_at")
+
+  @@map("produtos")
+}
+
+model Loja {
+  cnpj               String   @id @db.VarChar(14)
+  nome               String   @db.VarChar(100)
+  segmento           String?  @default("alimentação")
+  endereco           String   @db.VarChar(200)
+  telefone           Int?
+  quantidade_filiais Int
+  createdAt          DateTime @default(now()) @map("created_at")
+
+  @@map("lojas")
+}
+
+model Fornecedor {
+  id        String   @id @default(uuid()) @db.Uuid
+  nome      String   @db.VarChar(100)
+  email     String   @unique @db.VarChar(50)
+  avaliacao Decimal  @db.Decimal(10, 2) // 10 dígitos, 2 casas decimais
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updatedAt")
+
+  @@map("fornecedores")
+}
+
+// @default(uuid()): @default se você não informar um valor para esse campo ao criar um novo registro, o sistema irá gerar um valor padrão. E qual é esse valor padrão? Um uuid()
+
+// @db.Uuid: informa ao banco de dados que o tipo de dado desse campo é um UUID. Isso é importante para que o banco de dados reserve o espaço necessário e aplique as regras específicas para esse tipo de dado
+
+// @map("created_at") = O campo que eu chamo de createdAtno meu código, na verdade, será salvo no banco de dados com o nome created_at"
+
 // model NomeDaModel {
 //   campo Tipo        @atributos
 //   campo Tipo?       // Campo opcional

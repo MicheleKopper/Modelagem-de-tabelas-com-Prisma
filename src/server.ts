@@ -1,7 +1,7 @@
 import "dotenv/config";
 import cors from "cors";
 import express, { Request, Response } from "express";
-import { repository } from "./repository.prisma";
+import { repository } from "./database/repository.prisma";
 
 // Servidor express
 const app = express();
@@ -16,11 +16,17 @@ app.get("/", (request: Request, response: Response) => {
 });
 
 // Rota Prisma client
-// app.get("/", async (request: Request, response: Response) => {
-//   const nome_tabela = await repository.nome_tabela.findMany();
+app.get("/usuarios", async (request: Request, response: Response) => {
+  const usuarios = await repository.usuario.findMany();
 
-//   response.status(200).json({ ok: true, message: "💛", dado: nome_tabela });
-// });
+  response
+    .status(200)
+    .json({
+      ok: true,
+      message: "Usuários buscados com sucesso!",
+      dado: usuarios,
+    });
+});
 
 // Iniciar o servidor
 app.listen(process.env.PORTA, () => {
