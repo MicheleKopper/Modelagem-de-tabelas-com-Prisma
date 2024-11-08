@@ -2,10 +2,11 @@ import "dotenv/config";
 import cors from "cors";
 import express, { Request, Response } from "express";
 import { repository } from "./database/repository.prisma";
-import { request } from "http";
+
 
 // Servidor express
 const app = express();
+const port = process.env.PORT;
 
 // Middlewares
 app.use(cors());

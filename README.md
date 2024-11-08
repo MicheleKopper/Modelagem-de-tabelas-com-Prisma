@@ -32,7 +32,6 @@ npx tsc --init
 
 - `Target`: atualizar para uma versão mais recente do ECMASCRIPT "target": "ES2022"(utilizar sempre 1 ano anterior do atual)
 
-- Criar a pasta src e o arquivo `server.ts`
 - `rootDir`: descomentar e apontar o caminho onde vão estar os arquivos typescript ./src
 
 - `outDir`: descomentar e apontar o caminho onde os arquivos transpilados javascript vão ser destinados ./dist
@@ -106,6 +105,7 @@ import express, { Request, Response } from "express";
 
 // Servidor express
 const app = express();
+const port = process.env.PORT;
 
 // Middlewares
 app.use(cors());
